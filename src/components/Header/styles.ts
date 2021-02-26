@@ -1,7 +1,13 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+
+import { Link } from 'react-router-dom';
 
 interface ContainerProps {
   size?: 'small' | 'large';
+}
+
+interface NavItemProps {
+  $activePath: string;
 }
 
 export const Container = styled.div<ContainerProps>`
@@ -15,22 +21,29 @@ export const Container = styled.div<ContainerProps>`
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    nav {
-      a {
-        color: #fff;
-        text-decoration: none;
-        font-size: 16px;
-        transition: opacity 0.2s;
-
-        & + a {
-          margin-left: 32px;
-        }
-
-        &:hover {
-          opacity: 0.6;
-        }
-      }
-    }
   }
+`;
+
+export const NavItem = styled(Link)<NavItemProps>`
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+
+  & + a {
+    margin-left: 32px;
+  }
+
+  &:hover {
+    opacity: 0.6;
+  }
+
+  ${props =>
+    props.to === props.$activePath &&
+    css`
+      opacity: 1;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #ff872c;
+    `}
 `;
